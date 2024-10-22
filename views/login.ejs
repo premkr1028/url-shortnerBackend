@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="relatve bg-blue-200/25 flex justify-center items-center">
+  <% if(logSuccess){ %>
+    <div class="okDiv absolute w-[500px] h-[200px] shadow border border-gray-200 flex flex-col items-center justify-center  bg-white rounded-[15px]">
+  <h2 class="text-[20px] font-bold">Sign up success!</h2>
+<p class="text-[15px] ">Now log in to continue</p>
+<button onclick="hide()" class="bg-blue-500 text-white px-[20px] py-[5px] border border-white outline-none">Ok</button>
+</div>
+<% }%>
+    <div class="py-[15px] flex flex-col items-center gap-[10px]"> 
+       <h1> Welcome back! </h1>
+       <form action="/user/login" method="post" class="px-[10px] flex flex-col gap-[5px]">
+           <!-- <input type="text" class="sm:w-[500px] px-[5px] h-[40px] rounded-[5px] border border-gray-300 text-blak -->
+           <!-- outline-none w-[90vw]" placeholder="Username" name="userName" required> -->
+           <input type="text" class="sm:w-[500px] px-[5px] h-[40px] rounded-[5px] border border-gray-300 text-blak
+           outline-none w-[90vw]" placeholder="Email" name="email" required>
+           <input type="text" class="sm:w-[500px] px-[5px] h-[40px] rounded-[5px] border border-gray-300 text-blak
+           outline-none w-[90vw]" placeholder="Password" name="password"  required>
+            <input type="submit"  class="bg-blue-500 text-white px-[10px] py-[8px] rounded-[5px]" value="Log In">
+       
+        </form>
+        <p>don't have an account? <span class="text-blue-500 pointer"><a href="/signup">Sign Up</a> in</a></span></p>
+    </div>
+    <script>
+    function hide(){
+        document.querySelector(".okDiv").style.display = "none"
+    }
+    </script>
+</body>
+</html>

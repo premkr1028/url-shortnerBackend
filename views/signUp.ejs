@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-200/25 flex justify-center items-center">
+    <div class="py-[15px] flex flex-col items-center gap-[10px]"> 
+       <h1> Welcome! </h1>
+       <form action="/user" method="post" class="px-[10px] flex flex-col gap-[5px]">
+           <input type="text" class="sm:w-[500px] px-[5px] h-[40px] rounded-[5px] border border-gray-300 text-blak
+           outline-none w-[90vw]" placeholder="Username" name="userName" required>
+           <input type="email" class="sm:w-[500px] px-[5px] h-[40px] rounded-[5px] border border-gray-300 text-blak
+           outline-none w-[90vw]" placeholder="Email" name="email" required>
+           <% if(err){ %>
+           <p class="text-red-300"><%= err %></p>
+           <% }%>
+           <input type="text" class="sm:w-[500px] px-[5px] h-[40px] rounded-[5px] border border-gray-300 text-blak
+           outline-none w-[90vw]" placeholder="Password" name="password"  required>
+            <input type="submit"  class="bg-blue-500 text-white px-[10px] py-[8px] rounded-[5px]" value="Sign Up">
+        </form>
+        <p>Already have an account? <span class="text-blue-500 pointer"><a href="/login">log in</a></span></p>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- <div class="home w-screen h-screen bg-blue-400"></div> -->
+     <div class="home w-screen h-screen bg-blue-100/25 flex flex-col items-center">
+ <nav class="w-screen bg-blue-200 border-b-[0.5px] border-gray-300 px-[10px] py-[6px] flex  items-center justify-between">
+     <h1 class="font-bold text-[20px]">Lil Url</h1>
+       <ul class="flex gap-[10px] text-[12px]">
+        <a href="/">
+            <li class="hover:text-blue-600 duration-200">Home</li>
+        </a>
+        <a href="/yourLink">
+            <li class="hover:text-blue-600 duration-200">your links </li>
+        </a>
+        <a href="/profile">
+            <li class="hover:text-blue-600 duration-200">profile</li>
+        </a>
+       </ul>
+ </nav>
+    
+    
+     <p class="text-[2.5vw] font-normal mt-[18px] mb-[20px]">Apne bde <span class="text-blue-600">link</span> ko chota kare in one click</p>
+     <form class="flex flex-col w-screen items-center" action="/url" method="post">
+        <input name="longUrlLink" type="text" placeholder="Paste your bda link" class="outline-none md:w-[700px] lg:w-[1000px] sm:w-[500px] w-[90vw] border-[0.5px] border-gray-300 rounded-full h-[40px] text-blak px-[10px] py-[5px]">
+        <input class="mt-[10px] hover:bg-blue-200 hover:scale-[1.05] duration-200 w-[100px] bg-blue-400 rounded-[4px] text-white px-[10px] py-[4px] " type="submit" value="Generate">
+     </form>
+          
+    </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+    .popUp {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+<body>
+    <!-- <div class="home w-screen h-screen bg-blue-400"></div> -->
+    <div class="home relative w-screen h-screen bg-blue-100/25 flex flex-col items-center">
+        <nav
+            class="w-screen bg-blue-200 border-b-[0.5px] border-gray-300 px-[10px] py-[6px] flex  items-center justify-between">
+            <h1 class="font-bold text-[20px]">Lil Url</h1>
+            <ul class="flex gap-[10px] text-[12px]">
+                <a href="/">
+                    <li class="hover:text-blue-600 duration-200">Home</li>
+                </a>
+                <a href="/yourLink">
+                    <li class="hover:text-blue-600 duration-200">your links </li>
+                </a>
+                <a href="/profile">
+                    <li class="hover:text-blue-600 duration-200">profile</li>
+                </a>
+            </ul>
+        </nav>
+        <p id="url"></p>
+        <% if(shrtUrlId){ %>
+          <p id="shrtId" class="hidden"> <%= shrtUrlId %></p> 
+            <div id="shortenUrlCopyDiv"
+                class="flex flex-col px-[10px] py-[15px] rounded-[10px] border border-black items-center popUp bg-gray-200">
+                <span id="closeBtn" class="duration-200 hover:scale-[1.05] cross absolute right-[8px] top-[5px]">
+                    x
+                </span>
+                <h1 class="text-[20px] mb-[5px]">Your shorten link</h1>
+
+                <input id="shortUrlInput" type="text"
+                    class="sm:w-[500px] w-[95vw] outline-none border border-gray-300 mb-[10px] rounded-[6px] h-[40px] text-[14px] px-[5px]" readonly>
+                <button id="shortUrlCopyBtn"
+                    class="bg-blue-500 text-white rounded-[6px] py-[8px] text-[15px] px-[25px]">Copy</button>
+
+            </div>
+            <% }%>
+                <p class="text-[2.5vw] font-normal mt-[18px] mb-[20px]">Apne bde <span class="text-blue-600">link</span>
+                    ko
+                    chota kare in one click</p>
+                <form class="flex flex-col w-screen items-center" action="/url" method="post">
+                    <input required name="longUrlLink" type="text" placeholder="Paste your bda link"
+                        class="outline-none md:w-[700px] lg:w-[1000px] sm:w-[500px] w-[90vw] border-[0.5px] border-gray-300 rounded-[5px] h-[40px] text-blak px-[10px] py-[5px]">
+                    <div
+                        class="flex mt-[10px] justify-between h-[40px] items-center chooseName md:w-[700px] lg:w-[1000px] sm:w-[500px] w-[90vw] ">
+                        <input type="text"
+                            class="border-[0.5px] border-gray-300 rounded-[5px] h-[40px] text-blak px-[10px] py-[5px] h-[40px]  w-[80%]"
+                            name="custName" placeholder="choose name (Optional)">
+                        <input
+                            class=" h-full w-[18%] hover:bg-blue-200 hover:scale-[1.05] duration-200 bg-blue-400 rounded-[5px] text-white px-[10px] py-[4px] "
+                            type="submit" value="Short">
+                    </div>
+                </form>
+
+    </div>
+    <script>
+        let urlID = document.getElementById("url")
+        let closeBtn = document.getElementById("closeBtn")
+        let shortDiv = document.getElementById("shortenUrlCopyDiv")
+        let shrtIp = document.getElementById("shortUrlInput")
+        let shortUrlCopyBtn = document.getElementById("shortUrlCopyBtn")
+        let shortId = document.getElementById("shrtId");
+        let shrtUrl = window.location.href.slice(0,-3) + "lil/" + shortId.innerText
+        let temShortUrl ="" ;
+        for(i=0; i< shrtUrl.length; i++){
+                       if(shrtUrl[i] != " "){
+                        temShortUrl +=shrtUrl[i]
+                       }
+                }
+        shrtIp.value = temShortUrl
+        // urlID.innerHTML = window.location.href;
+        closeBtn.addEventListener("click", () => {
+            shortDiv.style.display = "none"
+        })
+        shortUrlCopyBtn.addEventListener("click", () => {
+            let shortUrl = shrtIp.value
+            navigator.clipboard.writeText(shortUrl)
+        })
+    </script>
+</body>
+
+</html>

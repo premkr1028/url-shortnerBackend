@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+    .workBtn {
+        width: 30px;
+        height: 30px;
+        border: 0.5px solid brown;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        transition: 0.2s;
+    }
+
+    .workBtn:hover {
+        background-color: rgb(248, 236, 236);
+    }
+</style>
+
+<body>
+    <!-- <div class="home w-screen h-screen bg-blue-400"></div> -->
+    <div class="yourLinks w-screen h-screen bg-blue-100/25 flex flex-col items-center">
+        <nav
+            class="w-screen bg-blue-200 border-b-[0.5px] border-gray-300 px-[10px] py-[6px] flex  items-center justify-between">
+            <h1 class="font-bold text-[20px]">Lil Url</h1>
+            <ul class="flex gap-[10px] text-[12px]">
+                <a href="/">
+                    <li class="hover:text-blue-600 duration-200">Home</li>
+                </a>
+                <a href="/analytics">
+                    <li class="hover:text-blue-600 duration-200">your links </li>
+                </a>
+                <a href="/profile">
+                    <li class="hover:text-blue-600 duration-200">profile</li>
+                </a>
+            </ul>
+        </nav>
+
+        <h1 class="mt-[15px] mb-[10px] font-bold text-[25px]">Your Links</h1>
+
+        <% if(data.length==0){ %>
+            <div class="w-screen mt-[15px] flex flex-col items-center gap-[10px]">
+                <p>You didn't have any links!</p>
+                <button class="bg-blue-500 px-[14px] py-[5px] rounded-[4px] text-white"><a href="/">Create
+                        links</a></button>
+            </div>
+
+            <% }else{ %>
+                <div class="searchLinkDiv relative ">
+                    <input type="text"
+                        class="pl-[10px] outline-none rounded-[5px] w-[600px] border border-gray-300 bg-zinc-100 text-black h-[40px]"
+                        placeholder="search your links">
+                </div>
+                <div class="linkCollection px-[10px] sm:w-[700px] w-[95vw] flex flex-col gap-[8px] w-screen mt-[10px]">
+                    <% data.forEach(function(result){ %>
+
+                        <div
+                            class="LinkDets  relative bg-zinc-200/50 border w-full border-black-300 flex items-center gap-[5px] ">
+                            <div class="qrImage w-[200px] h-[200px] flex justify-center items-center p-[5px]">
+                                <img class="qrs" src="<%= result.qrCode %>" alt="">
+                            </div>
+                            <div class="linkss w-[350px] py-[10px] h-full flex flex-col pl-[10px]">
+                                <h2 class="name text-[25px] font-bold">
+                                    <%= result.name%>
+                                </h2>
+                                <p class=" shLink font text-[15px] "><%=result.shortId%>
+                                </p>
+                                <p class=" long text-[10px] w-full wrap">
+                                    <%= result.redirectUrl%>
+                                </p>
+                            </div>
+                            <div
+                                class="btns h-full items-start py-[10px] justify-between px-[10px] flex gap-[5px] w-[150px]">
+                                <button class="copyBtn workBtn"><i class="fa-regular fa-copy"></i></button>
+                                <button class="downBtn workBtn"><i class="fa-solid fa-download"></i></button>
+                               <form action="/delUrl/<%=result.shortId%>" method="post">
+                                <!-- <label class="workBtn delete" for=""></label> -->
+                          <input type="submit" class=" workBtn delete" name="delBtn" id="" value="🗑️">
+                               </form>
+                            </div>
+                        </div>
+
+
+                        <!-- <li><%= result.name%></li> -->
+                        <% }); %>
+                </div>
+                <% }%>
+    </div>
+    <script>
+        let shortLinkIdPObj = document.querySelectorAll(".shLink")
+        let shortIdArr = []
+        shortLinkIdPObj.forEach(pTag => {
+            shortIdArr.push(pTag.textContent)
+        })
+        // let shortId = shortLinkIdP.textContent
+        let myLink = window.location.href
+        let cpyBtn = document.querySelectorAll(".copyBtn")
+        let downBtn = document.querySelectorAll(".downBtn")
+        let allQrs = document.querySelectorAll(".qrs")
+        function removeYourLink(url) {
+            // Split the URL at '/' to get individual path components
+            const urlParts = url.split('/');
+            console.log(urlParts)
+            // Find the index of "yourLink"
+            const yourLinkIndex = urlParts.indexOf('yourLink');
+            console.log(yourLinkIndex)
+            // If "yourLink" is found, remove it and the following component (assuming it's the actual link)
+            if (yourLinkIndex !== -1) {
+                urlParts.splice(yourLinkIndex);  // Remove "yourLink" and the next element
+            }
+
+            // Join the remaining parts back into a URL
+            return urlParts.join('/');
+        }
+        let allLinks = []
+        shortIdArr.map((id, index) => {
+            allLinks.push(removeYourLink(myLink) + `/lil/${id}`)
+        })
+        // let linkArr = removeYourLink(myLink) + `/l/${shortId}`
+        shortLinkIdPObj.forEach((pTag, ind) => {
+            pTag.innerHTML = allLinks[ind]
+        })
+        // shortLinkIdP.innerHTML = link;
+        cpyBtn.forEach((btn, indexes) => {
+            btn.addEventListener("click", (e) => {
+                let link = btn.parentElement.parentElement.children[1].children[1].textContent
+                 let trimLink;
+                for(i=0; i< link.length; i++){
+                       if(link[i] != " "){
+                        trimLink +=link[i]
+                       }
+                }
+                navigator.clipboard.writeText(link.trim())
+                btn.innerHTML = `<i class="fa-solid fa-check"></i>`
+            })
+        })
+
+        downBtn.forEach((btns, ind) => {
+            btns.addEventListener("click", (e) => {
+                let qrImg = btns.parentElement.parentElement.children[0].children[0]
+                //  alert(qrImg.src)
+                let url = qrImg.src
+                const link = document.createElement('a')
+                link.href = url
+                link.download = 'shortUrlQr.jpg'
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+
+            })
+
+        })
+    
+    </script>
+</body>
+
+</html>
